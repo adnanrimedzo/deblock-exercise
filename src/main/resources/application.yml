@@ -1,0 +1,32 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+
+supplier:
+  crazy-air:
+    url: http://localhost:8081/crazyair
+  tough-jet:
+    url: http://localhost:8082/toughjet
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      crazyAirSearch:
+        register-health-indicator: true
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 5
+        minimum-number-of-calls: 3
+        permitted-number-of-calls-in-half-open-state: 2
+        wait-duration-in-open-state: 10s
+        failure-rate-threshold: 50
+        automatic-transition-from-open-to-half-open-enabled: true
+      toughJetSearch:
+        register-health-indicator: true
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 5
+        minimum-number-of-calls: 3
+        permitted-number-of-calls-in-half-open-state: 2
+        wait-duration-in-open-state: 10s
+        failure-rate-threshold: 50
+        automatic-transition-from-open-to-half-open-enabled: true

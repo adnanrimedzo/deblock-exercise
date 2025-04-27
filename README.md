@@ -2,7 +2,7 @@
 
 **Background:**
 
-DeblockFlights is a flights search solution which aggregates flight results initially from 2 different suppliers (CrazyAir and ToughJet). A future iteration (not part of the test) may add more suppliers.
+DeblockFlights is a flightDtos search solution which aggregates flightDto results initially from 2 different suppliers (CrazyAir and ToughJet). A future iteration (not part of the test) may add more suppliers.
 
 
 **What is required:**
@@ -11,7 +11,7 @@ Hexagonal architecture is preferred, but not mandatory: https://www.baeldung.com
 Kotlin is preferred, but you can do it in Java.
 
 Use this GitHub repository as a base to implement the Deblock Flights service that should produce an aggregated result from both CrazyAir and ToughJet.
-The result should be a JSON response which contains a list of flights ordered by fare which has the following attributes:
+The result should be a JSON response which contains a list of flightDtos ordered by fare which has the following attributes:
 
 **Deblock Flights API**
 

@@ -1,12 +1,21 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.5'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'com.diffplug.spotless' version '6.25.0'
 }
 
-group = 'org.deblock'
-version = '0.0.1-SNAPSHOT'
+group = 'com.example'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '17'
+
+def mapstructVersion = '1.5.5.Final'
+def lombokVersion = '1.18.32'
+def log4jVersion = '2.23.1'
+def openfeignVersion = '4.1.1'
+def resilience4jVersion = '2.2.0'
+def wiremockSpringBootVersion = '3.6.0'
+def testcontainersVersion = '1.19.7'
 
 configurations {
 	compileOnly {
@@ -19,12 +28,38 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${openfeignVersion}"
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    implementation "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+    implementation "org.apache.logging.log4j:log4j-api:${log4jVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "io.github.resilience4j:resilience4j-spring-boot3:${resilience4jVersion}"
+    implementation "io.github.resilience4j:resilience4j-circuitbreaker:${resilience4jVersion}"
+    implementation "io.github.resilience4j:resilience4j-retry:${resilience4jVersion}"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
+    testImplementation "org.wiremock.integrations:wiremock-spring-boot:${wiremockSpringBootVersion}"
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+spotless {
+    java {
+        googleJavaFormat()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+task formatAndClean {
+    group = 'verification'
+    description = 'Formats code and removes unused dependencies.'
+    dependsOn 'spotlessApply', 'dependencies', 'dependencyUpdates'
+}
+
+test {
+    useJUnitPlatform()
 }

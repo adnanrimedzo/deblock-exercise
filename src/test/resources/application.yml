@@ -1,0 +1,9 @@
+spring:
+  active:
+    profiles: test
+
+supplier:
+  crazy-air:
+    url: http://localhost:8081/crazyair
+  tough-jet:
+    url: http://localhost:8082/toughjet

@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/toughjet/flights"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": [
+      {
+        "carrier": "ToughJet",
+        "basePrice": 100.00,
+        "tax": 20.00,
+        "discount": 5.00,
+        "departureAirportName": "LHR",
+        "arrivalAirportName": "AMS",
+        "outboundDateTime": "2025-05-01T10:00:00Z",
+        "inboundDateTime": "2025-05-01T12:00:00Z"
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
